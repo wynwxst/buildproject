@@ -40,19 +40,22 @@ import sys
 pos = ["name","run","version","dependencies","modules","projects","authors"]
 class mainz:
   def openproj():
-    with open(f"{os.getcwd()}/build.proj") as w:
-      content = w.read()
-      if content == "":
-        with open(f"{os.getcwd()}/build.proj","w") as x:
-          x.write("{}")
-
-    with open(f"{os.getcwd()}/build.proj") as w:
-      content = w.read()
-
-      
+    try:
+      with open(f"{os.getcwd()}/build.proj") as w:
+        content = w.read()
+        if content == "":
+          with open(f"{os.getcwd()}/build.proj","w") as x:
+            x.write("{}")
+  
+      with open(f"{os.getcwd()}/build.proj") as w:
+        content = w.read()
+  
         
-      x = json.loads(content)
-    return x
+          
+        x = json.loads(content)
+      return x
+    except:
+      return None
 
   def writeproj(proj):
     x = {}
@@ -67,7 +70,7 @@ class mainz:
 
   def structproj(): # just a ref
     
-    proj = main.openproj()
+    proj = mainz.openproj()
 
     # main struct
 
@@ -75,6 +78,7 @@ class mainz:
     author = proj["authors"]
     ver = proj["version"]
     run = proj["run"]
+    run = proj["language"]
     deps = proj["dependencies"]
     mods = proj["modules"]
 
@@ -89,7 +93,7 @@ class mainz:
 
   def parseproj(opt,arg,args): # just a ref
     
-    proj = main.openproj()
+    proj = mainz.openproj()
 
     # main struct
     try:
@@ -103,7 +107,7 @@ class mainz:
       projects = []
       for item in proj["projects"]:
         projects.append(item)
-    except KeyError:
+    except:
       if arg != "init":
         return print("ERROR: values not found")
 
@@ -114,16 +118,16 @@ class mainz:
         print(f"NAME: {name}\nAUTHORS: {authors}\nVERSION: {ver}")
       if arg == "init":
         os.system(f"touch {os.getcwd()}/build.proj")
-        proj = main.openproj()
+        proj = mainz.openproj()
         proj["name"] = "Name"
         proj["authors"] = []
         proj["version"] = "0.0.1"
-        proj["run"] = "echo You can use Installfile by replacing this string with 'Installfile' "
-        proj["dependencies"] = ["echo You can use Buildfile by replacing this string with 'Buildfile' ","echo eg. pip install <package>"]
+        proj["language"] = "<programming language eg. python, use full forms like javascript NOT js>"
+        proj["run"] = "echo You can use Buildfile by replacing this string with 'Buildfile' "
+        proj["dependencies"] = ["echo You can use Installfile by replacing this string with 'Installfile'","echo eg. pip install <package>"]
         proj["modules"] = ["https://pathtozipwithlocalmodules.com/module.zip"]
         proj["projects"] = []
-        print(proj)
-        main.writeproj(proj)
+        mainz.writeproj(proj)
       if arg == "set" or arg == "add":
         msg = ""
         val = args[0]
@@ -142,7 +146,7 @@ class mainz:
 
         if val not in posx:
           return print("Value does not exist in build.proj")
-        proj = main.openproj()
+        proj = mainz.openproj()
         if val in ["dependencies","modules","authors","projects"]:
           if toset in proj[val]:
             proj[val].remove(toset)
@@ -154,17 +158,17 @@ class mainz:
         else:
           proj[val] = toset
           msg = "set"
-        main.writeproj(proj)
+        mainz.writeproj(proj)
         print(f"Successfully {msg} '{val}' as '{toset}'")
       if arg == "run":
-        proj = main.openproj()
+        proj = mainz.openproj()
         run = proj["run"]
         if run == "Installfile":
           default({"x":"t","file":"Installfile","args":args})
         else:
           os.system(run)
       if arg == "dependencies" or arg == "deps":
-        proj = main.openproj()
+        proj = mainz.openproj()
         run = proj["dependencies"]
         if deps[0] == "Buildfile":
           default({"x":"t","args":args})
