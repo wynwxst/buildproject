@@ -28,7 +28,7 @@ echo "hi"
 @python 1 + 1
 # you can use python functions
 # || is return aka \n
-# |?| is tab
+# ?|? is tab
 @python def hello_world(args=None):||?|?print("hi")||?|?print("hola")||hello_world()
 # you can get the arguments given comma seperated by:
 echo "*getargs"
