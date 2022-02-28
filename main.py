@@ -20,6 +20,20 @@ except:
   os.system("pip install tqdm")
   os.system("pip install getopt")
   os.system("pip install argparse")
+  import argparse
+  import time
+  import sys
+  import getopt
+  import subprocess
+
+  import sys
+  from sys import platform
+  import json
+  import base64
+  import shutil
+
+  from tqdm import tqdm
+  import urllib.request
 
 vars = {}
 

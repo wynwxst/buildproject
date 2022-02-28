@@ -1,21 +1,23 @@
 from setuptools import setup
-
+long_description = "[Documentation](http://github.com/Ehnryu/build)"
 setup(name='buildproj',
-      version='0.5.0',
-      description='An alterative to make',
+      version='0.6.3',
+      description='Alternative to make',
       url='http://github.com/Ehnryu/build',
       author='Ehnryu/Sakurai07',
       author_email='blzzardst0rm@gmail.com',
       license='MIT',
-      packages=['buildproj',"buildproj"],
+      packages=['buildproj'],
+      long_description=long_description,
+      long_description_content_type="text/markdown",
       entry_points={
         'console_scripts': [
-            'build = buildproj.cli:launch',
+            'build = buildproj.cli:start',
         ],
     },
     install_requires=[
         'tqdm',
         ],
-    keywords=['build', 'make'],
+    keywords=['build', 'make',"project"],
     classifiers=["Programming Language :: Python :: 3"],
       zip_safe=False)

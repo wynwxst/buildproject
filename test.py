@@ -1,2 +1,2 @@
-from buildproj import launch
-launch()
+from buildproj.cli import start
+start()

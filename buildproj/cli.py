@@ -1,4 +1,4 @@
-from buildproj import launch
+def start():
+  from buildproj import launch
 
-if __name__ == "__main__":
   launch()

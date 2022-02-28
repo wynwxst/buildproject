@@ -16,13 +16,25 @@ try:
   from tqdm import tqdm
   
 
-except:
+except ImportError:
   print("Installing dependencies of build...")
   os.system("pip install tqdm")
+  import time
+  import sys
+  import getopt
+  import subprocess
 
+  import sys
+  from sys import platform
+  import json
+  import base64
+  import shutil
+
+  from tqdm import tqdm
 
 import json
 import os
+import sys
 
 
 pos = ["name","run","version","dependencies","modules","projects","authors"]
@@ -264,7 +276,7 @@ def printc(color,*text):
 def run(command):
     subprocess.check_output(command,shell=True)
 
-def main():
+def flags():
 
     advanced = ["help","sendargs =","runfunc =","build","install","proj ="]
 
@@ -635,7 +647,7 @@ def default(x):
 r = True 
 
 def launch():
-  x = main()
+  x = flags()
   default(x)
 
 
