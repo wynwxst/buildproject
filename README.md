@@ -18,6 +18,12 @@ To run a specified function type `build -r <function>`
 Create a file called `Buildfile` (caps matters)
 
 **Examples:**
+
+### Cli:
+you can now use `build test init`
+and `build test` to manage your tests
+
+### Buildfile:
 ```
 @function hello_world:
 # you can use bash in the Buildfile:

@@ -1,7 +1,7 @@
 from setuptools import setup
 long_description = "[Documentation](http://github.com/Ehnryu/build)"
 setup(name='buildproj',
-      version='0.6.3',
+      version='0.6.5',
       description='Alternative to make',
       url='http://github.com/Ehnryu/build',
       author='Ehnryu/Sakurai07',
@@ -17,6 +17,7 @@ setup(name='buildproj',
     },
     install_requires=[
         'tqdm',
+        'bashflags.py'
         ],
     keywords=['build', 'make',"project"],
     classifiers=["Programming Language :: Python :: 3"],

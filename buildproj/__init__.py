@@ -4,7 +4,7 @@ import os
 try:
   import time
   import sys
-  import getopt
+  from flags import Flags
   import subprocess
 
   import sys
@@ -19,6 +19,7 @@ try:
 except ImportError:
   print("Installing dependencies of build...")
   os.system("pip install tqdm")
+  os.system("pip install bashflags.py")
   import time
   import sys
   import getopt
@@ -39,6 +40,41 @@ import sys
 
 pos = ["name","run","version","dependencies","modules","projects","authors"]
 class mainz:
+  def test(arg):
+    
+    if arg == "init":
+      tw = {}
+      os.system(f"mkdir {os.getcwd()}/tests")
+      os.system(f"cd {os.getcwd()}/tests && touch tests.json")
+      tw["run"] = "echo what to run for each test eg. `python` so python <testfile>"
+      tw["ignore"] = ["files to ignore eg. `.env`"]
+      with open(f"{os.getcwd()}/tests/tests.json","w") as x:
+        json.dump(tw,x)
+      printc(CGREEN,"Initalized tests!")
+    else:
+        
+      files = []
+      d = {}
+      for file in os.listdir(f"{os.getcwd()}/tests/"):
+        if file.endswith(".json") == False:
+          files.append(file)
+      with open(f"{os.getcwd()}/tests/tests.json") as x:
+        c = json.load(x)
+      tr = c["run"]
+      for item in c["ignore"]:
+        files.remove(item)
+      amt = 1
+      for item in files:
+        print(f"{amt}. {item}")
+        d[amt] = item
+        amt += 1
+      q = input("> ")
+      q = int(q)
+      printc(CRED,f"running test no.{q}")
+      printc(CWHITE,"............")
+      fr = d[q]
+      os.system(f"cd {os.getcwd()}/tests && {tr} {fr}")
+      
   def openproj():
     try:
       with open(f"{os.getcwd()}/build.proj") as w:
@@ -113,7 +149,7 @@ class mainz:
 
 
 
-    if opt == "--proj":
+    if opt == "proj":
       if arg == "info":
         print(f"NAME: {name}\nAUTHORS: {authors}\nVERSION: {ver}")
       if arg == "init":
@@ -264,12 +300,12 @@ def send_help():
     print('USAGE: build [options]')
     print('A build tool created by Ehnryu\n')
     print('Basic options:\n')
-    print('--help : this command\n')
-    print('--build : build a project\n')
-    print('--install : install a project\n')
-    print('--sendargs : send arguments to a project\n')
-    print('--runfunc : run a specialized function\n')
-    print('--proj : configure a project\n')
+    print('help : this command\n')
+    print('build : build a project\n')
+    print('install : install a project\n')
+    print('sendargs : send arguments to a project\n')
+    print('runfunc : run a specialized function\n')
+    print('proj : configure a project\n')
 
 def printc(color,*text):
   CEND      = '\33[0m'
@@ -285,37 +321,47 @@ def flags():
     advanced = ["help","sendargs =","runfunc =","build","install","proj ="]
 
 
-    argv = sys.argv[1:]
-    opts = []
+    argv = sys.argv
+    bashflags = ""
 
 
     try:
-      opts, args = getopt.getopt(argv, "hr:",advanced)
+      
+      bashflags = Flags(argv)
 
 
     except:
         printc(CRED,"ERROR: Invalid arguments provided.")
         send_help()
+    opt = bashflags.flag
+    arg = bashflags.arg
+    args = bashflags.args
+  
+    
 
-    for opt, arg in opts:
-        opt = opt.rstrip()
-        opt = opt.replace(" ","")
-        opt = opt.lower()
+    opt = opt.rstrip()
+    opt = opt.replace(" ","")
+    opt = opt.lower()
+    if opt in [""]:
+      return {"x":"t","args":args}
 
-        if opt in ["-h","--help"]:
-          send_help()
+    if opt in ["-h","help"]:
+      send_help()
 
-        if opt in ["--proj"]:
-          mainz.parseproj(opt,arg,args)
-          
-        if opt in ["--sendargs"]:
-          return {"x":"t","args":sys.argv}
-        if opt in ["--build"]:
-          return {"x":"t","args":args}
-        if opt in ["--install"]:
-          return {"x":"t","file":"Installfile","args":args}
-        if opt in ["--runfunc","-r"]:
-          return {"x":"t","args":args,"func":arg}
+    if opt in ["proj"]:
+      mainz.parseproj(opt,arg,args)
+
+    if opt in ["test"]:
+      mainz.test(arg)
+      
+    if opt in ["sendargs"]:
+      return {"x":"t","args":sys.argv}
+    if opt in ["build"]:
+      return {"x":"t","args":args}
+    if opt in ["install"]:
+      return {"x":"t","file":"Installfile","args":args}
+    if opt in ["runfunc","-r"]:
+      return {"x":"t","args":args,"func":arg}
 
 
 
@@ -337,7 +383,7 @@ def default(x):
       argz = ""
 
       for item in args:
-        if item not in ["build","build.py","main.py","--sendargs"]:
+        if item not in ["build","build.py","main.py","sendargs"]:
           if item != args[len(args)-1]:
             argz += f"{item},"
           else:
@@ -372,7 +418,7 @@ def default(x):
           if cs:
             iten = item
             item = item.rstrip()
-            if "--viewcomments" in args or "-vc" in args:
+            if "viewcomments" in args or "-vc" in args:
               if item.startswith("#"):
                 printc(CBEIGE,f"COMMENT: {item}")
             if item.startswith("\endfunc"):
