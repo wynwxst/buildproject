@@ -74,7 +74,7 @@ class mainz:
       printc(CRED,f"running test no.{q}")
       printc(CWHITE,"............")
       fr = d[q]
-      pre = d["preload"]
+      pre = c["preload"]
       os.system(f"cd {os.getcwd()}/tests && {pre}")
       os.system(f"cd {os.getcwd()}/tests && {tr} {fr}")
       

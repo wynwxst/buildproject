@@ -1,0 +1,11 @@
+README.md
+setup.py
+buildproj/__init__.py
+buildproj/cli.py
+buildproj.egg-info/PKG-INFO
+buildproj.egg-info/SOURCES.txt
+buildproj.egg-info/dependency_links.txt
+buildproj.egg-info/entry_points.txt
+buildproj.egg-info/not-zip-safe
+buildproj.egg-info/requires.txt
+buildproj.egg-info/top_level.txt

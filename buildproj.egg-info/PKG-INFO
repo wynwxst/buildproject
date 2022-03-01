@@ -1,0 +1,13 @@
+Metadata-Version: 2.1
+Name: buildproj
+Version: 0.6.8
+Summary: Alternative to make
+Home-page: http://github.com/Ehnryu/buildproject
+Author: Ehnryu/Sakurai07
+Author-email: blzzardst0rm@gmail.com
+License: MIT
+Description: [Documentation](http://github.com/Ehnryu/buildproject)
+Keywords: build,make,project
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown
