@@ -46,11 +46,12 @@ class mainz:
       tw = {}
       os.system(f"mkdir {os.getcwd()}/tests")
       os.system(f"cd {os.getcwd()}/tests && touch tests.json")
+      tw["preload"] = "echo what to run before a test eg. pip install etc or compile something"
       tw["run"] = "echo what to run for each test eg. `python` so python <testfile>"
       tw["ignore"] = ["files to ignore eg. `.env`"]
       with open(f"{os.getcwd()}/tests/tests.json","w") as x:
         json.dump(tw,x)
-      printc(CGREEN,"Initalized tests!")
+      printc(CGREEN,"Initalized tests!\nConfigure tests/tests.json as needed")
     else:
         
       files = []
@@ -73,6 +74,8 @@ class mainz:
       printc(CRED,f"running test no.{q}")
       printc(CWHITE,"............")
       fr = d[q]
+      pre = d["preload"]
+      os.system(f"cd {os.getcwd()}/tests && {pre}")
       os.system(f"cd {os.getcwd()}/tests && {tr} {fr}")
       
   def openproj():
@@ -333,6 +336,7 @@ def flags():
     except:
         printc(CRED,"ERROR: Invalid arguments provided.")
         send_help()
+
     opt = bashflags.flag
     arg = bashflags.arg
     args = bashflags.args

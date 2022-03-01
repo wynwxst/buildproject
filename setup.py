@@ -1,9 +1,9 @@
 from setuptools import setup
-long_description = "[Documentation](http://github.com/Ehnryu/build)"
+long_description = "[Documentation](http://github.com/Ehnryu/buildproject)"
 setup(name='buildproj',
-      version='0.6.5',
+      version='0.6.7',
       description='Alternative to make',
-      url='http://github.com/Ehnryu/build',
+      url='http://github.com/Ehnryu/buildproject',
       author='Ehnryu/Sakurai07',
       author_email='blzzardst0rm@gmail.com',
       license='MIT',

@@ -1,1 +1,1 @@
-{"run": "python", "ignore": []}
+{"preload": "pip install buildproj", "run": "python", "ignore": []}

@@ -99,3 +99,29 @@ echo "You ran me only"
 
 ### Whats new?
 Added project management with `build.proj` files
+Added testing
+
+
+### Development:
+Install buildproj:
+
+`pip install buildproj`
+
+`build`
+
+In case of the binary not working:
+
+`python buildbinary.py`
+
+All processes are automated except for the sign in for pip, please be sure to also change the version and name in `setup.py
+
+### Tests:
+Install buildproj:
+
+`pip install buildproj`
+
+`build test`
+
+In case of the binary not working:
+
+`python buildbinary.py test`
